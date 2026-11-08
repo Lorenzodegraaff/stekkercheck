@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Stekkercheck: welke stekkerbatterij past bij jouw huis? | Open source</title>
+<meta name="description" content="Gratis open source rekenhulp: beantwoord 4 vragen en zie welke capaciteit thuisbatterij of stekkerbatterij bij jouw huis past. Gemaakt door Lorenzo de Graaff (Stekkergids).">
+<meta name="author" content="Lorenzo de Graaff">
+<link rel="canonical" href="https://stekkergids.nl/stekkercheck/">
+<meta property="og:title" content="Stekkercheck: welke stekkerbatterij past bij jou?">
+<meta property="og:description" content="4 vragen, 1 minuut, gratis. Open source versie van de Stekkercheck van Stekkergids.nl.">
+<meta property="og:url" content="https://stekkergids.nl/stekkercheck/">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Stekkercheck",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "nl-NL",
+  "isAccessibleForFree": true,
+  "url": "https://stekkergids.nl/stekkercheck/",
+  "license": "https://opensource.org/licenses/MIT",
+  "author": {
+    "@type": "Person",
+    "name": "Lorenzo de Graaff",
+    "url": "https://lorenzodegraaff.nl",
+    "jobTitle": "SEO en GEO specialist",
+    "sameAs": ["https://github.com/Lorenzodegraaff", "https://stekkergids.nl/over-stekkergids/"]
+  },
+  "publisher": {"@type": "Organization", "name": "Stekkergids", "url": "https://stekkergids.nl"}
+}
+</script>
+<style>
+  :root { --bg:#f6f8f5; --card:#fff; --ink:#14251b; --muted:#5b6b60; --brand:#1f7a4a; --brand-2:#e8f4ec; --line:#dfe7e1; }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; }
+  main { max-width:640px; margin:0 auto; padding:32px 16px 48px; }
+  .eyebrow { font-size:12px; font-weight:700; letter-spacing:.08em; color:var(--brand); text-transform:uppercase; }
+  h1 { font-size:28px; line-height:1.2; margin:6px 0 8px; }
+  .lead { color:var(--muted); margin:0 0 24px; }
+  form, .result, .about { background:var(--card); border:1px solid var(--line); border-radius:14px; padding:20px; }
+  fieldset { border:0; margin:0 0 18px; padding:0; }
+  legend { font-weight:700; margin-bottom:8px; }
+  label { display:flex; gap:10px; align-items:center; padding:10px 12px; border:1px solid var(--line); border-radius:10px; margin-bottom:6px; cursor:pointer; }
+  label:has(input:checked) { border-color:var(--brand); background:var(--brand-2); }
+  input[type=radio] { accent-color:var(--brand); }
+  button { width:100%; padding:14px; font-size:16px; font-weight:700; color:#fff; background:var(--brand); border:0; border-radius:10px; cursor:pointer; }
+  button:disabled { opacity:.5; cursor:not-allowed; }
+  .result { margin-top:16px; display:none; }
+  .result.show { display:block; }
+  .big { font-size:24px; font-weight:800; margin:4px 0 8px; }
+  .result ul { padding-left:18px; margin:8px 0 0; }
+  .cta { display:block; text-align:center; margin-top:16px; padding:14px; border-radius:10px; background:var(--ink); color:#fff; font-weight:700; text-decoration:none; }
+  .small { font-size:13px; color:var(--muted); }
+  .about { margin-top:24px; }
+  .about a { color:var(--brand); }
+</style>
+</head>
+<body>
+<main>
+  <div class="eyebrow">Stekkergids · open source</div>
+  <h1>Stekkercheck: welke stekkerbatterij past bij jouw huis?</h1>
+  <p class="lead">Beantwoord vier vragen en zie welke capaciteit en welk type batterij bij jouw situatie past. Gratis, zonder aanmelden, alles draait in je eigen browser.</p>
+
+  <form id="check">
+    <fieldset>
+      <legend>1. Heb je zonnepanelen?</legend>
+      <label><input type="radio" name="panelen" value="0" required> Nee</label>
+      <label><input type="radio" name="panelen" value="2.4"> Ja, tot 8 panelen</label>
+      <label><input type="radio" name="panelen" value="4.4"> Ja, 9 tot 14 panelen</label>
+      <label><input type="radio" name="panelen" value="6.5"> Ja, 15 of meer panelen</label>
+    </fieldset>
+    <fieldset>
+      <legend>2. Hoeveel stroom gebruik je na zonsondergang?</legend>
+      <label><input type="radio" name="avond" value="laag" required> Weinig: 1 of 2 personen, geen grote verbruikers</label>
+      <label><input type="radio" name="avond" value="gemiddeld"> Gemiddeld: gezin, koken op inductie</label>
+      <label><input type="radio" name="avond" value="hoog"> Veel: warmtepomp, elektrische auto of boiler</label>
+    </fieldset>
+    <fieldset>
+      <legend>3. Wat voor energiecontract heb je?</legend>
+      <label><input type="radio" name="contract" value="vast" required> Vast of variabel</label>
+      <label><input type="radio" name="contract" value="dynamisch"> Dynamisch (uurprijzen)</label>
+      <label><input type="radio" name="contract" value="onbekend"> Weet ik niet</label>
+    </fieldset>
+    <fieldset>
+      <legend>4. Waar woon je?</legend>
+      <label><input type="radio" name="woning" value="koop" required> Koopwoning</label>
+      <label><input type="radio" name="woning" value="huur"> Huurwoning</label>
+      <label><input type="radio" name="woning" value="appartement"> Appartement</label>
+    </fieldset>
+    <button type="submit">Bekijk mijn advies</button>
+    <p class="small">Je antwoorden verlaten je browser niet. Dit is een indicatie op basis van vuistregels, geen persoonlijk advies.</p>
+  </form>
+
+  <section class="result" id="result" aria-live="polite">
+    <div class="eyebrow">Jouw indicatie</div>
+    <div class="big" id="advies"></div>
+    <p id="uitleg"></p>
+    <ul id="punten"></ul>
+    <a class="cta" href="https://stekkergids.nl/stekkercheck/?utm_source=github&amp;utm_medium=referral&amp;utm_campaign=stekkercheck-oss">Reken het precies uit voor jouw huis op Stekkergids.nl →</a>
+    <p class="small">Gratis stekkerplan: het precieze model, de opbrengst bij jouw energieleverancier en de terugverdientijd naast de garantie.</p>
+  </section>
+
+  <section class="about">
+    <strong>Hoe komt dit advies tot stand?</strong>
+    <p class="small">We kijken naar twee dingen: hoeveel zonnestroom je overdag overhoudt en hoeveel je na zonsondergang gebruikt. De kleinste van die twee bepaalt grofweg hoe groot je batterij hoeft te zijn. Groter kopen levert weinig extra op, omdat de batterij dan zelden vol of leeg raakt. Alle aannames staan open in de broncode.</p>
+    <p class="small">Gemaakt door <a href="https://lorenzodegraaff.nl">Lorenzo de Graaff</a>, SEO en GEO specialist en maker van <a href="https://stekkergids.nl">Stekkergids.nl</a>. Stekkergids vergelijkt stekkerbatterijen op basis van fabrikantgegevens, publieke tests en eigen berekeningen. Geen installateur: twijfel je over je aansluiting, laat dan een erkende installateur meekijken.</p>
+  </section>
+</main>
+
+<script>
+/*
+ * Stekkercheck, open source versie (MIT).
+ * Auteur: Lorenzo de Graaff, https://lorenzodegraaff.nl
+ * Live tool: https://stekkergids.nl/stekkercheck/
+ *
+ * Aannames (vuistregels, bewust eenvoudig gehouden):
+ * - Panelen: tot 8 ≈ 2,4 kWp, 9-14 ≈ 4,4 kWp, 15+ ≈ 6,5 kWp (≈ 400 Wp per paneel).
+ * - Gemiddelde dag over het jaar: opbrengst ≈ 2,7 kWh per kWp (≈ 950 kWh per kWp per jaar).
+ * - Eigen verbruik overdag en verbruik na zonsondergang per huishoudprofiel (kWh per dag).
+ * - Nuttige batterijgrootte ≈ min(overschot overdag, verbruik 's avonds).
+ */
+const AANNAMES = {
+  kwhPerKwpPerDag: 2.7,
+  dagVerbruik:   { laag: 1.5, gemiddeld: 2.5, hoog: 4 },
+  avondVerbruik: { laag: 2.5, gemiddeld: 4.5, hoog: 7 }
+};
+
+function berekenAdvies({ panelen, avond, contract, woning }) {
+  const kwp = Number(panelen);
+  const opbrengst = kwp * AANNAMES.kwhPerKwpPerDag;
+  const overschot = Math.max(0, opbrengst - AANNAMES.dagVerbruik[avond]);
+  const avondKwh = AANNAMES.avondVerbruik[avond];
+  const nuttig = Math.min(overschot, avondKwh);
+  const punten = [];
+  let advies, uitleg;
+
+  if (kwp === 0) {
+    if (contract === 'dynamisch') {
+      advies = 'Stekkerbatterij van 2 tot 5 kWh';
+      uitleg = 'Zonder zonnepanelen verdient een batterij alleen door goedkoop te laden en duur te gebruiken. Met een dynamisch contract kan dat, mits je hem slim laat sturen.';
+    } else {
+      advies = 'Een batterij loont waarschijnlijk niet';
+      uitleg = 'Zonder zonnepanelen en zonder uurprijzen heeft een batterij weinig om op te slaan. Overweeg eerst zonnepanelen of een dynamisch contract.';
+    }
+  } else if (nuttig < 1.5) {
+    advies = 'Kleine stekkerbatterij, of wachten';
+    uitleg = `Je houdt op een gemiddelde dag ongeveer ${overschot.toFixed(1)} kWh over. Dat is weinig, dus een grote batterij raakt zelden vol.`;
+  } else if (nuttig <= 3) {
+    advies = 'Stekkerbatterij van 2 tot 3 kWh';
+    uitleg = `Je houdt ongeveer ${overschot.toFixed(1)} kWh zonnestroom over en gebruikt ongeveer ${avondKwh} kWh na zonsondergang. Rond ${nuttig.toFixed(1)} kWh benut je het meest.`;
+  } else if (nuttig <= 5.5) {
+    advies = 'Stekkerbatterij van ongeveer 5 kWh';
+    uitleg = `Je houdt ongeveer ${overschot.toFixed(1)} kWh zonnestroom over en gebruikt ongeveer ${avondKwh} kWh na zonsondergang. Rond ${nuttig.toFixed(1)} kWh benut je het meest.`;
+  } else {
+    advies = avond === 'hoog' ? 'Vaste thuisbatterij overwegen' : 'Stekkerbatterij van 5 kWh, uitbreidbaar';
+    uitleg = `Je kunt dagelijks meer dan 5 kWh nuttig opslaan. ${avond === 'hoog' ? 'Met een warmtepomp of elektrische auto is een vaste thuisbatterij vaak de optie die echt werkt.' : 'Kies een model dat je later kunt uitbreiden.'}`;
+  }
+
+  if (contract === 'dynamisch') punten.push('Dynamisch contract: laat de batterij slim sturen op uurprijzen, dan verdient hij ook in de winter.');
+  if (contract === 'vast') punten.push('Vast of variabel contract: na het einde van de salderingsregeling (1 januari 2027) zit de winst vooral in zelf je zonnestroom gebruiken.');
+  if (contract === 'onbekend') punten.push('Check je contract: met uurprijzen haal je meer uit een batterij.');
+  if (woning === 'huur' || woning === 'appartement') punten.push('Huur of appartement: een stekkerbatterij hoeft niet vast aangesloten te worden. Overleg wel met je verhuurder of VvE.');
+  if (avond === 'hoog' && kwp > 0 && nuttig <= 5.5) punten.push('Hoog avondverbruik maar weinig zonne-overschot: meer panelen leveren je waarschijnlijk meer op dan een grotere batterij.');
+  if (woning === 'koop' && avond === 'hoog') punten.push('Koopwoning met hoog verbruik: vergelijk een stekker met een vaste thuisbatterij voordat je kiest.');
+  punten.push('Gebruik altijd een eigen groep en laat bij twijfel een erkende installateur meekijken.');
+
+  return { advies, uitleg, punten, nuttigKwh: nuttig };
+}
+
+const form = document.getElementById('check');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const data = Object.fromEntries(new FormData(form));
+  const r = berekenAdvies(data);
+  document.getElementById('advies').textContent = r.advies;
+  document.getElementById('uitleg').textContent = r.uitleg;
+  const ul = document.getElementById('punten');
+  ul.replaceChildren(...r.punten.map(t => Object.assign(document.createElement('li'), { textContent: t })));
+  const res = document.getElementById('result');
+  res.classList.add('show');
+  res.scrollIntoView({ behavior: 'smooth', block: 'start' });
+});
+
+if (typeof module !== 'undefined') module.exports = { berekenAdvies, AANNAMES };
+</script>
+</body>
+</html>
